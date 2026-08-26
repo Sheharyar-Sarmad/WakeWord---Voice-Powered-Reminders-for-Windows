@@ -137,13 +137,18 @@ class SimpleReminder:
         print(f"🔔 {reminder['title']}: {reminder['message']}")
 
     def _send_notification(self, title, message):
+        # Check for logo.ico in the current directory
+        icon_path = Path("logo.ico")
+        app_icon = str(icon_path) if icon_path.exists() else None
+
         if HAS_NOTIFICATION:
             try:
                 notification.notify(
                     title=f"{APP_NAME}: {title}",
                     message=message,
                     timeout=10,
-                    app_name=APP_NAME   # <-- shows "WakeWord" in notification
+                    app_name=APP_NAME,
+                    app_icon=app_icon   # <-- uses logo.ico if available
                 )
                 print("📨 Notification sent!")
                 return
