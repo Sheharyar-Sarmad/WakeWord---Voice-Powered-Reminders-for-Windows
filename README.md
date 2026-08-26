@@ -83,3 +83,8 @@ This project is licensed under the MIT License.
 
 **Sheharyar Sarmad**
 [LinkedIn](https://www.linkedin.com/in/sheharyar-sarmad-9b7736289/)
+
+## Social
+
+**Linkedin**
+[Post Link](https://www.linkedin.com/feed/update/urn:li:ugcPost:7498322302254907392/)
