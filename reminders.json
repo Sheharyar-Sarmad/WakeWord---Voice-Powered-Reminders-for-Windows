@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Learn Dimensionality Reduction",
+    "message": "I have to learn dimenstionaltiy reduction of unsupervised learning",
+    "datetime": "2026-08-25T23:03:00",
+    "repeat_type": "once",
+    "repeat_interval": 0,
+    "priority": "high",
+    "active": true,
+    "created_at": "2026-08-25T23:01:54.272544",
+    "last_triggered": "2026-08-25T23:03:21.014085"
+  },
+  {
+    "id": 2,
+    "title": "Drink Water",
+    "message": "I have to drink water because its so much hot there in pakistan",
+    "datetime": "2026-08-25T23:05:00",
+    "repeat_type": "once",
+    "repeat_interval": 0,
+    "priority": "high",
+    "active": true,
+    "created_at": "2026-08-25T23:04:37.714898",
+    "last_triggered": "2026-08-25T23:05:29.798848"
+  }
+]
