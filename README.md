@@ -1,391 +1,85 @@
-WakeWord - Desktop Reminders with Voice for Windows
-<p align="center"> <img src="https://img.shields.io/badge/python-3.7+-blue.svg" alt="Python Version"> <img src="https://img.shields.io/badge/platform-Windows-0078D6.svg" alt="Platform"> <img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"> <img src="https://img.shields.io/badge/status-stable-brightgreen.svg" alt="Status"> </p><p align="center"> <strong>🔔 Smart Reminders • 🗣️ Voice Notifications • 🔄 Background Checker • 📅 Full Date/Time Support</strong> </p>
-📋 Table of Contents
-Overview
+# WakeWord 🔔
 
-Features
+A lightweight desktop reminder system for Windows with voice and notification support.
 
-Installation
+## Features
 
-Quick Start
+- 📅 Add reminders with custom date and time
+- 🔁 Repeat types: once, daily, or custom interval (minutes)
+- 🔔 Native Windows notifications (via `plyer`, with `MessageBox` fallback)
+- 🗣️ Voice announcements using SAPI text-to-speech
+- ⚙️ Background checker thread that runs automatically
+- 💾 Persistent storage using a local JSON file
+- 🖥️ Simple interactive command-line menu
 
-Usage Guide
+## Requirements
 
-Command Line Options
+- Python 3.8+
+- Windows OS (uses `winsound`, `ctypes`, and optionally `win32com.client`)
 
-Configuration
+## Installation
 
-Screenshots
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/<your-username>/wakeword.git
+   cd wakeword
+   ```
 
-Dependencies
+2. Install dependencies:
+   ```bash
+   pip install plyer pywin32
+   ```
 
-Contributing
+## Usage
 
-License
+Run the interactive menu (checker starts automatically in the background):
 
-Support
-
-🎯 Overview
-WakeWord is a feature-rich desktop reminder system for Windows that combines voice notifications, flexible scheduling, and automatic background checking. Whether you need a one-time alert or a recurring daily reminder, WakeWord ensures you never miss important tasks again.
-
-✨ Why WakeWord?
-⚡ Lightweight & Fast - No heavy dependencies, runs smoothly in background
-
-🎯 Accurate Timing - Checks every 30 seconds for precision
-
-🗣️ Natural Voice - Windows TTS integration for spoken reminders
-
-💾 Persistent Storage - All reminders survive application restarts
-
-🔄 Automatic - Background checker runs independently
-
-🌟 Features
-Core Functionality
-Feature	Description
-🔔 Smart Reminders	Set one-time, daily, or interval-based reminders
-🗣️ Voice Notifications	Windows TTS speaks your reminders aloud
-📨 Desktop Notifications	Native Windows notifications with custom icon
-🔄 Background Checker	Automatic 30-second checks for due reminders
-📅 Full Date/Time	Schedule with precise date and time
-📋 Priority Levels	Low, normal, or high priority organization
-⏸️ Pause/Resume	Temporarily disable without deleting
-💾 JSON Storage	All reminders saved in human-readable format
-Advanced Features
-Multiple Repeat Types: Once, Daily, or Custom Intervals
-
-Foreground/Background Modes: Choose how checker operates
-
-Example Reminders: Quick-start with pre-configured examples
-
-Custom App Name: Personalize the application
-
-Custom Icon: Use your own logo for notifications
-
-📦 Installation
-Prerequisites
-bash
-Python 3.7 or higher
-Windows 7/8/10/11
-Step 1: Clone the Repository
-bash
-git clone https://github.com/yourusername/wakeword.git
-cd wakeword
-Step 2: Install Dependencies
-bash
-pip install plyer pywin32
-Step 3: Verify Installation
-bash
-python main.py --help
-🚀 Quick Start
-Running the Application
-bash
-# Start interactive menu (recommended)
+```bash
 python main.py
+```
 
-# Add example reminders
-python main.py --examples
+Other run modes:
 
-# Run background checker only
-python main.py --checker
-First-Time Setup
-Run python main.py
+```bash
+python main.py --examples   # Add example reminders
+python main.py --checker    # Run checker only (foreground)
+```
 
-The application creates reminders.json automatically
+### Menu Options
 
-Start adding reminders from the interactive menu
+| Option | Description |
+|--------|-------------|
+| 1 | Add a new reminder |
+| 2 | List all reminders |
+| 3 | Delete a reminder |
+| 4 | Pause / resume a reminder |
+| 5 | Start checker in foreground |
+| 6 | Stop background checker |
+| 7 | Exit |
 
-The background checker starts automatically
+## Troubleshooting
 
-📖 Usage Guide
-Interactive Menu
-When you run python main.py, you'll see:
+- **No notifications appearing** — Ensure `plyer` is installed (`pip install plyer`). If it fails, the app falls back to a Windows `MessageBox` popup automatically.
+- **No voice playback** — Install `pywin32` (`pip install pywin32`) to enable SAPI text-to-speech. Without it, the app falls back to audio beeps.
+- **Reminders not triggering** — Confirm the background checker is running; it checks every 30 seconds. Use option `5` in the menu to run it in the foreground for debugging.
+- **Invalid date/time errors** — Dates must be `YYYY-MM-DD` and times must be `HH:MM` in 24-hour format.
 
-text
-==================================================
-📅 WakeWord REMINDER SYSTEM
-==================================================
-1. Add Reminder
-2. List Reminders
-3. Delete Reminder
-4. Pause/Resume Reminder
-5. Start Checker (foreground)
-6. Stop Checker
-7. Exit
-==================================================
-Adding a Reminder
-Select option 1 from main menu
+## Configuration
 
-Enter Title (required)
+- App name can be changed via the `APP_NAME` variable in `main.py`.
+- Reminder data is stored in `reminders.json` in the project root.
 
-Enter Message (required)
+## Roadmap
 
-Specify Date:
+- [ ] GUI interface
+- [ ] Cross-platform notification support
+- [ ] Recurring reminders on specific weekdays
 
-YYYY-MM-DD (e.g., 2024-12-31)
+## License
 
-today (current date)
+This project is licensed under the MIT License.
 
-tomorrow (next day)
+## Author
 
-Specify Time (24-hour format):
-
-HH:MM (e.g., 14:30 for 2:30 PM)
-
-Choose Repeat Type:
-
-1 - Once (single occurrence)
-
-2 - Daily (repeats every day)
-
-3 - Interval (every X minutes)
-
-Set Priority (optional):
-
-low, normal, or high
-
-Confirmation message appears with reminder details
-
-Managing Reminders
-List All Reminders
-Option 2: View all active reminders
-
-Add y to show paused reminders too
-
-Delete Reminder
-Option 3: View reminder list
-
-Enter ID of reminder to delete
-
-Pause/Resume
-Option 4: View reminder list
-
-Enter ID and choose p (pause) or r (resume)
-
-Checker Controls
-Option 5: Start checker in foreground (interactive)
-
-Option 6: Stop background checker
-
-🎮 Command Line Options
-Usage
-bash
-python main.py [OPTIONS]
-Options
-Option	Description
-(no args)	Interactive menu with auto-start checker
---examples	Add example reminders and exit
---checker	Run checker in foreground only
---help	Show help message
-Examples
-bash
-# Interactive mode with menu
-python main.py
-
-# Pre-populate with examples
-python main.py --examples
-
-# Dedicated checker mode
-python main.py --checker
-⚙️ Configuration
-Custom Application Name
-Edit main.py to change the app name:
-
-python
-# Line 18
-APP_NAME = "My Reminders"  # Change to your preferred name
-Custom Notification Icon
-Create a .ico file (e.g., logo.ico)
-
-Place it in the same directory as main.py
-
-The application will automatically detect and use it
-
-Data Storage
-Reminders are stored in reminders.json:
-
-json
-[
-  {
-    "id": 1,
-    "title": "Team Meeting",
-    "message": "Daily standup at 10 AM",
-    "datetime": "2024-01-15T10:00:00",
-    "repeat_type": "daily",
-    "repeat_interval": 0,
-    "priority": "high",
-    "active": true,
-    "created_at": "2024-01-14T09:30:00",
-    "last_triggered": null
-  }
-]
-Checker Interval
-The background checker runs every 30 seconds. To modify:
-
-python
-# In _checker_loop method (line ~185)
-time.sleep(30)  # Change this value
-📱 Screenshots
-Main Menu
-text
-==================================================
-📅 WakeWord REMINDER SYSTEM
-==================================================
-1. Add Reminder
-2. List Reminders
-3. Delete Reminder
-4. Pause/Resume Reminder
-5. Start Checker (foreground)
-6. Stop Checker
-7. Exit
-==================================================
-Adding a Reminder
-text
-📝 NEW REMINDER
-Title: Morning Meeting
-Message: Daily standup with team
-Date (YYYY-MM-DD) or 'today' or 'tomorrow': today
-Time (HH:MM, 24-hour): 09:30
-
-Repeat Type:
-1. Once
-2. Daily
-3. Interval (every X minutes)
-Choose (1-3): 2
-
-Priority (low/normal/high) [normal]: high
-
-✅ Reminder added! (ID: 1)
-   Morning Meeting on 2024-01-15 09:30 (daily)
-Notification Example
-text
-🔔 WakeWord: Morning Meeting
-📝 Daily standup with team
-🗣️ Voice played!
-📨 Notification sent!
-🛠️ Dependencies
-Package	Version	Purpose
-plyer	Latest	Desktop notifications
-pywin32	Latest	Windows TTS integration
-json	Built-in	Data persistence
-threading	Built-in	Background checker
-datetime	Built-in	Date/time handling
-Installing Dependencies
-bash
-# Core packages
-pip install plyer pywin32
-
-# Optional (for development)
-pip install pytest black flake8
-🤝 Contributing
-How to Contribute
-Fork the repository
-
-Create a feature branch:
-
-bash
-git checkout -b feature/AmazingFeature
-Commit changes:
-
-bash
-git commit -m 'Add some AmazingFeature'
-Push to branch:
-
-bash
-git push origin feature/AmazingFeature
-Open a Pull Request
-
-Development Ideas
-□ GUI interface (Tkinter/PyQt)
-□ Sound alerts and custom sounds
-□ Email/SMS notifications
-□ Reminder categories/tags
-□ Export/Import functionality
-□ Snooze feature
-□ Statistics and analytics
-□ Calendar integration
-□ Mobile sync
-Code Style
-Follow PEP 8 guidelines
-
-Use descriptive variable names
-
-Add docstrings to functions
-
-Write unit tests for new features
-
-📄 License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-text
-MIT License
-
-Copyright (c) 2024 WakeWord Contributors
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-...
-📞 Support
-Getting Help
-Resource	Link/Contact
-Issues	GitHub Issues
-Discussions	GitHub Discussions
-Email	your.email@example.com
-Troubleshooting
-Issue: Voice notifications not working
-
-text
-Solution: Ensure Windows TTS is enabled and pywin32 is installed
-Issue: Notifications not showing
-
-text
-Solution: Check if plyer is installed correctly or use MessageBox fallback
-Issue: Reminders not triggering
-
-text
-Solution: Verify the date/time is in the future and reminder is active
-📊 Project Status
-Aspect	Status
-Development	Active
-Stability	Stable
-Documentation	Complete
-Test Coverage	Basic
-Community	Open
-🙏 Acknowledgments
-plyer - Cross-platform notifications
-
-pywin32 - Windows API bindings
-
-All contributors and users of WakeWord
-
-📝 Changelog
-Version 1.0.0 (Current)
-Initial release
-
-Basic reminder functionality
-
-Voice notifications
-
-Background checker
-
-Interactive menu
-
-JSON persistence
-
-Planned Features
-GUI interface
-
-Multiple reminder categories
-
-Advanced scheduling options
-
-Data export/import
-
-<p align="center"> <strong>Built with ❤️ for Windows users</strong><br> <sub>Made with Python • Simple • Reliable • Free</sub> </p>
-<div align="center">
-Report Bug · Request Feature · Star on GitHub
-
-</div>
+**Sheharyar Sarmad**
+[LinkedIn](https://www.linkedin.com/in/sheharyar-sarmad-9b7736289/)
